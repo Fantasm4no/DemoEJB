@@ -1,0 +1,48 @@
+package views;
+
+import java.awt.BorderLayout;
+import java.util.List;
+import javax.swing.*;
+
+import model.Book;
+
+public class BookListGUI extends JFrame {
+
+    public BookListGUI(List<Book> books) {
+        initializeUI(books);
+    }
+
+    private void initializeUI(List<Book> books) {
+        setTitle("List of Books");
+        setSize(500, 300);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setLayout(new BorderLayout());
+
+        // Crear un área de texto para mostrar los libros
+        JTextArea bookListArea = new JTextArea();
+        bookListArea.setEditable(false);
+
+        // Generar la lista de libros
+        StringBuilder bookList = new StringBuilder();
+        for (Book book : books) {
+            bookList.append("Title: ").append(book.getTitle()).append("\n");
+            bookList.append("Author: ").append(book.getAuthor()).append("\n");
+            bookList.append("ISBN: ").append(book.getIsbn()).append("\n");
+            bookList.append("Publisher: ").append(book.getPublisher()).append("\n");
+            bookList.append("Year: ").append(book.getPublicationYear()).append("\n");
+            bookList.append("----------------------\n");
+        }
+
+        // Establecer el texto en el área de texto
+        bookListArea.setText(bookList.toString());
+
+        // Agregar el área de texto a un JScrollPane
+        JScrollPane scrollPane = new JScrollPane(bookListArea);
+
+        // Agregar el JScrollPane a la ventana
+        add(scrollPane, BorderLayout.CENTER);
+
+        // Hacer visible la ventana
+        setVisible(true);
+    }
+}

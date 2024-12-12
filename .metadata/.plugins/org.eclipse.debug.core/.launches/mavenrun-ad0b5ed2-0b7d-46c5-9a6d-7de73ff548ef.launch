@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="org.eclipse.m2e.Maven2LaunchConfigurationType">
+    <booleanAttribute key="M2_BATCH" value="false"/>
+    <stringAttribute key="M2_GOALS" value="-U archetype:generate"/>
+    <listAttribute key="M2_PROPERTIES">
+        <listEntry value="archetypeGroupId=org.wildfly.archetype"/>
+        <listEntry value="archetypeArtifactId=wildfly-jakartaee-webapp-archetype"/>
+        <listEntry value="archetypeVersion=34.0.1.Final"/>
+        <listEntry value="groupId=ec.edu.ups.ppw"/>
+        <listEntry value="artifactId=demoBooks-ejb"/>
+        <listEntry value="version=0.0.1-SNAPSHOT"/>
+        <listEntry value="package=ec.edu.ups.ppw.demoBooks_ejb"/>
+        <listEntry value="outputDirectory=C:\Users\INSPIRON 15\Desktop\Eclipse_Practicas"/>
+    </listAttribute>
+    <booleanAttribute key="M2_SAVE_BEFORE_LAUNCH" value="false"/>
+    <booleanAttribute key="org.eclipse.debug.ui.private" value="true"/>
+    <stringAttribute key="org.eclipse.jdt.launching.WORKING_DIRECTORY" value="C:\Users\INSPIR~1\AppData\Local\Temp\m2e-archetypeGenerator9087940396691624542"/>
+</launchConfiguration>

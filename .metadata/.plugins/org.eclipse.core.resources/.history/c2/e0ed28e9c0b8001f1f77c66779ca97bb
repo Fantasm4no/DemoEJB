@@ -1,0 +1,56 @@
+package views;
+
+import java.awt.BorderLayout;
+import java.util.List;
+import javax.swing.*;
+
+import model.Book;
+import service.BookRegistrationRemote;
+
+public class BookListGUI extends JFrame {
+
+    private BookRegistrationRemote bookRegistration;
+
+    public BookListGUI(BookRegistrationRemote bookRegistration) {
+        this.bookRegistration = bookRegistration;
+        initializeUI();
+    }
+
+    private void initializeUI() {
+        setTitle("List of Books");
+        setSize(500, 300);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setLayout(new BorderLayout());
+
+        // Crear un área de texto para mostrar los libros
+        JTextArea bookListArea = new JTextArea();
+        bookListArea.setEditable(false);
+
+        // Cargar los libros desde el servidor
+        try {
+            List<Book> books = bookRegistration.listBooks();
+            StringBuilder bookList = new StringBuilder();
+            for (Book book : books) {
+                bookList.append("Title: ").append(book.getTitle()).append("\n");
+                bookList.append("Author: ").append(book.getAuthor()).append("\n");
+                bookList.append("ISBN: ").append(book.getIsbn()).append("\n");
+                bookList.append("Publisher: ").append(book.getPublisher()).append("\n");
+                bookList.append("Year: ").append(book.getPublicationYear()).append("\n");
+                bookList.append("----------------------\n");
+            }
+            bookListArea.setText(bookList.toString());
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Error fetching books: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+        }
+
+        // Agregar el área de texto a un JScrollPane
+        JScrollPane scrollPane = new JScrollPane(bookListArea);
+
+        // Agregar el JScrollPane a la ventana
+        add(scrollPane, BorderLayout.CENTER);
+
+        // Hacer visible la ventana
+        setVisible(true);
+    }
+}

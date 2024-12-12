@@ -1,0 +1,48 @@
+package Main;
+
+import java.util.Hashtable;
+
+import javax.naming.Context;
+import javax.naming.InitialContext;
+
+import model.Book;
+import service.BookRegistrationRemote;
+
+public class Main {
+
+	private BookRegistrationRemote bookRegistration;
+	
+	public void initialize() throws Exception {
+		Hashtable<String, Object> hashBook = new Hashtable<>();
+		hashBook.put(Context.INITIAL_CONTEXT_FACTORY, "org.wildfly.naming.client.WildFlyInitialContextFactory");
+		hashBook.put(Context.PROVIDER_URL, "http-remoting://localhost:8080");
+		
+		try {
+			Context context = new InitialContext(hashBook);
+			bookRegistration = (BookRegistrationRemote) context.lookup(
+                "ejb:/proyecto1-server/MemberRegistration!service.MemberRegistrationRemote"
+            );
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+            System.err.println("Error JNDI lookup. ");
+            throw e;
+		}
+	}
+	
+	public void registerMember(String title, String autor, String isbn) throws Exception {
+        Book book = new Book();
+        book.setTitle(title);
+        book.setAuthor(autor);
+        book.setIsbn(isbn);
+
+        bookRegistration.register(book);
+        System.out.println("Member registered: " + title);
+    }
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

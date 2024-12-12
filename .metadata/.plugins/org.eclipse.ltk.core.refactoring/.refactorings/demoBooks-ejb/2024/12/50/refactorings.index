@@ -1,0 +1,18 @@
+1733955810231	Delete element
+1733956140013	Delete element
+1733959597641	Rename compilation unit 'BookListProducer.java'
+1733959614406	Rename type 'BookRepository'
+1733959645788	Rename type 'Book'
+1733959684636	Rename type 'BookController'
+1733959707373	Rename type 'BookRegistrationLocal'
+1733959742119	Rename type 'BookRegistrationRemote'
+1733959756155	Rename type 'BookRegistration'
+1733959889952	Rename type 'BookResourceRESTService'
+1733973955187	Delete element
+1733973961015	Delete element
+1733973966350	Delete element
+1733974469789	Rename type 'Member'
+1733974522346	Rename type 'MemberRegistrationRemote'
+1733974567025	Rename type 'MemberRegistrationLocal'
+1733974602089	Rename type 'MemberRegistration'
+1733974743178	Rename type 'MemberController'

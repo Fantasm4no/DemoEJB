@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring accessors="true" comment="Delete element from project &apos;demoEjb-Client&apos;&#x0D;&#x0A;- Original project: &apos;demoEjb-Client&apos;&#x0D;&#x0A;- Original element: &apos;demoEjb-Client/src/main/java/ec.edu.ups.ppw.demoEjb_Client&apos;" description="Delete element" element1="/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;ec.edu.ups.ppw.demoEjb_Client" element2="/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;ec.edu.ups.ppw" element3="/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;ec.edu.ups" element4="/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;ec.edu" element5="/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;ec" elements="5" flags="589830" id="org.eclipse.jdt.ui.delete" resources="0" stamp="1734018863479" subPackages="false" version="1.0"/>
+</session>

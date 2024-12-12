@@ -1,0 +1,28 @@
+package service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import jakarta.ejb.Stateless;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import model.Book;
+
+@Stateless
+public class BookRegistration implements BookRegistrationLocal, BookRegistrationRemote{
+
+	private final List<Book> books = new ArrayList<>();
+	
+	@PersistenceContext
+    private EntityManager em;
+
+    @Override
+    public void register(Book book) {
+        em.persist(book);
+    }
+    
+    @Override
+    public List<Book> listBooks() {
+        return new ArrayList<>(books);
+    }
+}

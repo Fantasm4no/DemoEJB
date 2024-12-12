@@ -1,0 +1,65 @@
+package Main;
+
+import java.util.Hashtable;
+import java.util.List;
+
+import javax.naming.Context;
+import javax.naming.InitialContext;
+
+import model.Book;
+import service.BookRegistrationRemote;
+
+public class Main {
+
+	private BookRegistrationRemote bookRegistration;
+	
+	public void initialize() throws Exception {
+		Hashtable<String, Object> jndiProps = new Hashtable<>();
+		jndiProps.put(Context.INITIAL_CONTEXT_FACTORY, "org.wildfly.naming.client.WildFlyInitialContextFactory");
+		jndiProps.put(Context.PROVIDER_URL, "http-remoting://localhost:8080");
+		
+		try {
+			Context context = new InitialContext(jndiProps);
+			bookRegistration = (BookRegistrationRemote) context.lookup(
+                "ejb:/demoEjb/BookRegistration!service.BookRegistrationRemote"
+            );
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+            System.err.println("Error JNDI lookup. ");
+            throw e;
+		}
+	}
+	
+	public void registerBook(String title, String autor, String isbn) throws Exception {
+        Book book = new Book();
+        book.setTitle(title);
+        book.setAuthor(autor);
+        book.setIsbn(isbn);
+
+        bookRegistration.register(book);
+        System.out.println("Member registered: " + title);
+    }
+	
+	public void listBooks() throws Exception {
+	    List<Book> books = bookRegistration.getAllBooks();
+	    System.out.println("Registered books:");
+	    for (Book b : books) {
+	        System.out.println("Title: " + b.getTitle() + ", Author: " + b.getAuthor() + ", ISBN: " + b.getIsbn());
+	    }
+	}
+
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		try {
+            Main book = new Main();
+            book.initialize();
+            book.registerBook("Cien Años de Soledad", "Gabriel García Márquez", "9780060114183");
+            book.listBooks();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+	}
+
+}

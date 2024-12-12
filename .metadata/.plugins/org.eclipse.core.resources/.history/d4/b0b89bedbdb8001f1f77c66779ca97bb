@@ -1,0 +1,108 @@
+package views;
+
+import java.awt.GridLayout;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import model.Book;
+import service.BookRegistrationRemote;
+
+public class BookAppGUI extends JFrame {
+
+    private BookRegistrationRemote bookRegistration;
+
+    // Componentes de la interfaz gráfica
+    private JTextField titleField;
+    private JTextField authorField;
+    private JTextField isbnField;
+    private JTextField publisherField;
+    private JTextField publicationYearField;
+    private JButton registerButton;
+
+    public BookAppGUI(BookRegistrationRemote bookRegistration) {
+        this.bookRegistration = bookRegistration;
+        initializeUI();
+    }
+
+    private void initializeUI() {
+        // Configuración de la ventana principal
+        setTitle("Book Registration");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(400, 300);
+        setLayout(new GridLayout(6, 2, 10, 10));
+
+        // Crear campos de entrada de texto
+        titleField = new JTextField(20);
+        authorField = new JTextField(20);
+        isbnField = new JTextField(20);
+        publisherField = new JTextField(20);
+        publicationYearField = new JTextField(4);
+
+        // Crear el botón de registro
+        registerButton = new JButton("Register Book");
+
+        // Agregar el listener al botón
+        registerButton.addActionListener(e -> {
+            try {
+                // Obtener los valores de los campos
+                String title = titleField.getText();
+                String author = authorField.getText();
+                String isbn = isbnField.getText();
+                String publisher = publisherField.getText();
+
+                // Validar los campos
+                if (title.isEmpty() || author.isEmpty() || isbn.isEmpty() || publisher.isEmpty() || publicationYearField.getText().isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "Please fill in all fields.", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                int publicationYear = Integer.parseInt(publicationYearField.getText());
+
+                // Crear un nuevo libro con los datos ingresados
+                Book book = new Book(title, author, isbn, publisher, publicationYear);
+
+                // Desactivar el botón para evitar clics múltiples
+                registerButton.setEnabled(false);
+
+                // Llamar al método de registro en el EJB remoto
+                bookRegistration.register(book);
+                JOptionPane.showMessageDialog(this, "Book registered successfully: " + title, "Success", JOptionPane.INFORMATION_MESSAGE);
+
+                // Rehabilitar el botón después de registrar
+                registerButton.setEnabled(true);
+                clearFields(); // Limpiar los campos después de registrar
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(this, "Please enter a valid year.", "Error", JOptionPane.ERROR_MESSAGE);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(this, "An error occurred while registering the book.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        });
+
+        // Agregar los componentes a la ventana
+        add(new JLabel("Title:"));
+        add(titleField);
+        add(new JLabel("Author:"));
+        add(authorField);
+        add(new JLabel("ISBN:"));
+        add(isbnField);
+        add(new JLabel("Publisher:"));
+        add(publisherField);
+        add(new JLabel("Publication Year:"));
+        add(publicationYearField);
+        add(registerButton);
+
+        // Hacer visible la ventana
+        setVisible(true);
+    }
+
+    private void clearFields() {
+        titleField.setText("");
+        authorField.setText("");
+        isbnField.setText("");
+        publisherField.setText("");
+        publicationYearField.setText("");
+    }
+}
